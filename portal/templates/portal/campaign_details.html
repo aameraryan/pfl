@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title  %}
+    <title>{{campaign.Name}} | Fine-Leap Systems</title>
+{% endblock %}
+
+{% block content %}
+    <br>
+
+    <div class="jumbotron container text-center">
+
+        <div class="container">
+
+            <a href="{% url 'portal:campaigns' %}" style="float: left"><h3 class="fa fa-arrow-left"></h3></a>
+            <h2>{{campaign.Name}}</h2>
+            <hr>
+        <div class="row">
+            <span style="float: left"><b><i class="fa fa-user"> </i>  {{user.username}}</b></span>
+            <a href={% url 'portal:my_views' campaign_id=campaign.id %} style="float:right;">
+            <button class="btn "><b><i class="fa fa-check-square"></i> My Views <span class="aa-number-circle">{{user.view_set.count}}</span></b></button>
+            </a>
+            <a href={% url 'portal:my_leads' campaign_id=campaign.id %} style='margin-right:30px;float:right;' >
+            <button class="btn"><b><i class="fa fa-hand-o-up"></i> My Leads <span class="aa-number-circle">{{user.lead_set.count}}</span></b></button>
+            </a>
+            <a href={% url 'portal:my_dncs' campaign_id=campaign.id %} style='margin-right:30px;float:right;' >
+            <button class="btn"><b>My DNCS <span class="aa-number-circle">{{user.dnc_set.count}}</span></b></button>
+            </a>
+            <br><br>
+        </div>
+        <table class="table table-bordered">
+            <tr><td>Name</td><td>{{campaign.Name}}</td></tr>
+            <tr><td>Start From</td><td>{{campaign.Start_Date}}</td></tr>
+            <tr><td>End To</td><td>{{campaign.End_Date}}</td></tr>
+            <tr><td>Status</td><td>{{campaign.Status}}</td></tr>
+        </table>
+            <a href={% url 'portal:get_prospect' campaign_id=campaign.id%}><button class="btn"><b>Get Prospect</b></button></a>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+

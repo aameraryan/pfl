@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title  %}
+    <title>My DNCS | {{dncs.first.DNC_User.username}}</title>
+{% endblock %}
+
+{% block content %}
+    <br>
+
+    <div style="padding:40px;" class="jumbotron container text-center">
+
+        <a href="{% url 'portal:campaign_details' campaign_id=campaign_id %}" style="float: left"><h3 class="fa fa-arrow-left"></h3></a>
+
+        <h2> All DNCS : {{dncs.count}}</h2>
+        <h4 style="float: right"><i class="fa fa-user"> </i> : {{dncs.first.DNC_User.username}}</h4>
+        <table class="table table-bordered ">
+            <tr>
+                <td>Sr No.</td>
+                <td>Name</td>
+                <td>Date</td>
+            </tr>
+            {% for dnc in dncs %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{dnc.Prospect.Name}}</td>
+                    <td>{{dnc.DNC_On}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
+
+
+

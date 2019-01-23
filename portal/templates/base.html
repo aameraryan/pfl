@@ -1,0 +1,143 @@
+{% load i18n static %}
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+        <head>
+
+            {% block title %}<title>Fine-Leap Systems</title>{% endblock %}
+
+            {% block extrahead %}{% endblock %}
+
+            <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+            <link rel="stylesheet" type="text/css" href={% static "portal/css/bootstrap.min.css" %}>
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+            {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}">{% endif %}
+            {% block responsive %}
+                <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+                <link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive.css" %}">
+                {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
+            {% endblock %}
+            {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+
+
+
+            <style>
+                /*body{*/
+                    /*background-color: #006666;*/
+                /*}*/
+                .aa-number-circle {
+                    background: #eee;
+                    border-radius: 0.8em;
+                    -moz-border-radius: 0.8em;
+                    -webkit-border-radius: 0.8em;
+                    color: darkblue;
+                    display: inline-block;
+                    font-weight: bold;
+                    line-height: 1.6em;
+                    margin-right: 15px;
+                    text-align: center;
+                    width: 1.6em;
+                }
+
+                #header{
+                background-color: #00e6e6;
+                color:white;
+                height:66px;
+                }
+
+                #aa-branding{
+                    margin-top: 10px !important;
+                    color: white !important;
+                }
+                caption{
+                    background-color: #00b3b3 !important;
+                }
+                .breadcrumbs{
+                    background-color: #00b3b3 !important;
+
+                }
+                input[type='submit'], button[type=submit]{
+                    background-color: #00b3b3 !important;
+                }
+                #changelist-filter  h2{
+                    background-color: #00b3b3 !important;
+                }
+                .aa-edit-form{
+                    margin: 20px;
+                }
+
+
+            </style>
+
+
+        </head>
+
+        {% load i18n %}
+
+        <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+          data-admin-utc-offset="{% now "Z" %}">
+
+            <div id="container">
+
+                {% if not is_popup %}
+                <!-- Header -->
+                <div id="header">
+                    <div id="branding">
+                        <h1 id="aa-branding">Fine-Leap Systems</h1>
+                    </div>
+                    {% block usertools %}
+
+                    <div id="user-tools">
+
+                    <span id="my_date" style="font-weight: bold"></span> /
+
+                        {% block welcome-msg %}
+                            <strong>{% firstof user.get_short_name user.get_username %}</strong> /
+                        {% endblock %}
+                        {% block userlinks %}
+
+                            {% if user.is_superuser %}
+                                <a href="/admin/"><i class="fa fa-user-circle"> </i> Admininstration</a> /
+                            {% endif%}
+                            <a href={% url 'portal:campaigns' %}><i class="fa fa-list-alt"></i> Campaigns</a>/
+                            <a href="{% url 'portal:logout' %}"><i class="fa fa-power-off"></i> {% trans 'Log out' %}</a>
+                        {% endblock %}
+                    </div>
+                    {% endblock %}
+                </div>
+
+                {% endif %}
+
+                {% block messages %}
+                    {% if messages %}
+                    <ul class="messagelist">{% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+                    {% endfor %}</ul>
+                    {% endif %}
+                {% endblock messages %}
+
+                {% block content %}
+                {% endblock %}
+
+                {% block footer %}<div id="footer"></div>{% endblock %}
+
+
+                <script>
+                    n =  new Date();
+                    y = n.getFullYear();
+                    m = n.getMonth() + 1;
+                    d = n.getDate();
+                    document.getElementById("my_date").innerHTML = m + "/" + d + "/" + y;
+                </script>
+
+
+            </div>
+
+        </body>
+
+
+</html>

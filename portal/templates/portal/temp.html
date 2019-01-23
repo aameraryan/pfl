@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+
+{% block title  %}
+    <title>prospect.Name</title>
+{% endblock %}
+
+{% block my_content %}
+    <br>
+
+    <div class="jumbotron container text-center">
+        {% if empty_msg %}<h2>{{ empty_msg }}</h2>{% endif %}
+        {% if prospect %}
+            <h2>{{prospect.Name}}</h2>
+            <table class="table table-bordered">
+                <tr><td>Name</td><td>{{prospect.Name}}</td></tr>
+                <tr><td>Phone</td><td>{{prospect.Phone}}</td></tr>
+                <tr><td>Industry Type</td><td>{{prospect.Industry_Type}}</td></tr>
+                <tr><td>Job Title</td><td>{{prospect.Job_Title}}</td></tr>
+            </table>
+
+            <a href={% url 'make_lead' campaign_id=campaign.id prospect_id=prospect.id %} ><button class="btn">Make Lead</button></a>
+            <a href={% url 'make_view' campaign_id=campaign.id prospect_id=prospect.id %} ><button class="btn">Make View</button></a>
+            <a href={% url 'make_dnc' campaign_id=campaign.id prospect_id=prospect.id %} ><button class="btn">Make DNC</button></a>
+        {% endif %}
+    </div>
+
+{% endblock %}
+

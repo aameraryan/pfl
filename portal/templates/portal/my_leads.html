@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title  %}
+    <title>My Leads | {{leads.first.Lead_User.username}}</title>
+{% endblock %}
+
+{% block content %}
+    <br>
+
+    <div style="padding:40px;" class="jumbotron container text-center">
+
+        <a href="{% url 'portal:campaign_details' campaign_id=campaign_id %}" style="float: left"><h3 class="fa fa-arrow-left"></h3></a>
+
+        <h2> All Leads : {{leads.count }}</h2>
+        <h4 style="float: right"><i class="fa fa-user"> </i> : {{leads.first.Lead_User.username}}</h4>
+        <table class="table table-bordered ">
+            <tr>
+                <td>Sr No.</td>
+                <td>Name</td>
+                <td>Date</td>
+            </tr>
+            {% for lead in leads %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{lead.Prospect.Name}}</td>
+                    <td>{{lead.Lead_On}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
+
+
+

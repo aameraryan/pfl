@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title  %}
+    <title>Campaigns | Fine-Leap Systems</title>
+{% endblock %}
+
+
+
+{% block content %}
+
+    <br>
+
+    <div class="jumbotron container text-center">
+
+        <a href="{% url 'portal:home' %}" style="float: left"><h3 class="fa fa-arrow-left"></h3></a>
+
+        <h2> <i class="fa fa-list-alt"></i> Active Campaigns</h2>
+        <br>
+        {% for campaign in campaigns %}
+        <a href={% url 'portal:campaign_details' campaign_id=campaign.id %}><button class="btn " style="margin: 10px;"><b>{{ campaign.Name }}</b></button></a>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+

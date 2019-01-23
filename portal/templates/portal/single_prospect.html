@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+
+{% block title  %}
+    <title>{{prospect.Name.title}} | Fine-Leap Systems</title>
+{% endblock %}
+
+{% block content %}
+    <br>
+
+    <div class="jumbotron container text-center" style="padding: 30px">
+
+        {% if prospect %}
+            <a href="{% url 'portal:campaign_details' campaign_id=campaign.id %}" style="float: left"><h3 class="fa fa-arrow-left"></h3></a>
+        {% endif %}
+
+        {% if empty_msg %}
+        <a href="{% url 'portal:campaigns' %}" style="float: left"><h3 class="fa fa-arrow-left"></h3></a>
+        <h3>{{ empty_msg }}</h3>{% endif %}
+        {% if prospect %}
+            <h2><i class="far fa-address-card"></i> {{prospect.Name.upper}}</h2>
+            <table class="table table-bordered table-striped" style="font-weight: bold">
+                <tr><td>Name</td><td>{{prospect.Name}}</td></tr>
+                <tr><td><i class="fas fa-phone-volume"></i> Phone</td><td><input type="text" value="{{prospect.Phone}}" id="myInput">  <button class="btn " onclick="myFunction()">Copy text</button></td></tr>
+                <tr><td>Industry Type</td><td>{{prospect.Industry_Type}}</td></tr>
+                <tr><td>Job Title</td><td>{{prospect.Job_Title}}</td></tr>
+                <tr><td> <i class="fa fa-mail"></i> Email</td><td>{{prospect.Email}}</td></tr>
+                <tr><td> <i class="fa fa-globe"></i> Website</td><td>{{prospect.Website}}</td></tr>
+                <tr><td> <i class="fa fa-users"></i> Emp Size</td><td>{{prospect.Emp_Size}}</td></tr>
+                <tr><td>Company</td><td>{{prospect.Company}}</td></tr>
+                <tr><td> <i class="fas fa-city"></i> City</td><td>{{prospect.City}}</td></tr>
+
+            </table>
+
+            {# <!--<a href={% url 'portal:make_lead' campaign_id=campaign.id prospect_id=prospect.id %} ><button type="submit" class="btn" style="margin: 10px"><b>Make Lead</b></button></a>-->#}
+            {# <!--<a href={% url 'portal:make_view' campaign_id=campaign.id prospect_id=prospect.id %} ><button type="submit" class="btn" style="margin: 10px"><b>Make View</b></button></a>-->#}
+             {#<!--<a href={% url 'portal:make_dnc' campaign_id=campaign.id prospect_id=prospect.id %} ><button type="submit" class="btn" style="margin: 10px"><b>Make DNC</b></button></a>-->#}
+
+                <a href={% url 'portal:make_lead' campaign_id=campaign.id prospect_id=prospect.id %} ><input type="submit" class="btn" style="margin: 10px;font-weight: bold" value="Make Lead"></a>
+                <a href={% url 'portal:make_view' campaign_id=campaign.id prospect_id=prospect.id %} ><input type="submit" class="btn" style="margin: 10px;font-weight: bold" value="Make View"></a>
+                <a href={% url 'portal:make_dnc' campaign_id=campaign.id prospect_id=prospect.id %} ><input type="submit" class="btn" style="margin: 10px;font-weight: bold" value="Make DNC"></a>
+
+
+
+
+            <br><br>
+            <hr>
+            {% if form %}
+                <form method="post" action={% url 'portal:make_changes' campaign_id=campaign.id prospect_id=prospect.id %}>
+                    {% csrf_token %}
+                    <b>Phone &nbsp; &nbsp; &nbsp;:</b><input class="aa-edit-form" type="text" name="phone">
+                    <b>Email :</b><input class="aa-edit-form" type="text" name="email">
+                    <br>
+                    <b>Company :</b><input class="aa-edit-form" type="text" name="company">
+                    <b>Notes :</b><input class="aa-edit-form" type="text" name="notes">
+                    <br>
+                    <input value="Save Changes" type="submit" class="btn" style="width: 35%;font-weight: bold">
+                    <br>
+                </form>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+
+
+    <script>
+    function myFunction() {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        document.execCommand("copy");
+        }
+    </script>
+
+
+
+
+
+{% endblock %}
+
